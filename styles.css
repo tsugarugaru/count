@@ -33,6 +33,7 @@ body {
 }
 
 button,
+input,
 textarea {
   font: inherit;
 }
@@ -133,6 +134,7 @@ h1 {
 }
 
 .button:focus-visible,
+.goal-input:focus-visible,
 .text-input:focus-visible {
   outline: 3px solid rgba(33, 107, 99, 0.28);
   outline-offset: 2px;
@@ -218,6 +220,35 @@ h1 {
   background: #fffaf4;
 }
 
+.goal-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--ink);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.goal-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+}
+
+.goal-input {
+  width: 92px;
+  min-height: 38px;
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--ink);
+  font-weight: 800;
+  text-align: right;
+}
+
 .meter-top {
   display: flex;
   align-items: center;
@@ -299,6 +330,11 @@ h1 {
 
   .button {
     flex: 1 1 120px;
+  }
+
+  .goal-control {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .stats-grid {

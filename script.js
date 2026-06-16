@@ -4,12 +4,14 @@ const charNoSpaceCount = document.querySelector("#charNoSpaceCount");
 const englishWordCount = document.querySelector("#englishWordCount");
 const lineCount = document.querySelector("#lineCount");
 const paragraphCount = document.querySelector("#paragraphCount");
+const goalInput = document.querySelector("#goalInput");
+const goalProgressLabel = document.querySelector("#goalProgressLabel");
 const shortPostMeter = document.querySelector("#shortPostMeter");
 const shortPostStatus = document.querySelector("#shortPostStatus");
 const copyButton = document.querySelector("#copyButton");
 const clearButton = document.querySelector("#clearButton");
 
-const SHORT_POST_LIMIT = 280;
+const DEFAULT_CHARACTER_GOAL = 280;
 const englishWordPattern = /[A-Za-z]+(?:['-][A-Za-z]+)*/g;
 
 function countCharacters(text) {
@@ -39,10 +41,21 @@ function formatNumber(value) {
   return new Intl.NumberFormat("ja-JP").format(value);
 }
 
+function getCharacterGoal() {
+  const value = Number.parseInt(goalInput.value, 10);
+  return Number.isFinite(value) ? Math.max(1, value) : DEFAULT_CHARACTER_GOAL;
+}
+
+function normalizeGoalInput() {
+  goalInput.value = String(getCharacterGoal());
+  updateCounts();
+}
+
 function updateCounts() {
   const text = textInput.value;
   const characters = countCharacters(text);
-  const shortPostPercent = Math.round((characters / SHORT_POST_LIMIT) * 100);
+  const characterGoal = getCharacterGoal();
+  const shortPostPercent = Math.round((characters / characterGoal) * 100);
   const meterWidth = Math.min(shortPostPercent, 100);
 
   charCount.textContent = formatNumber(characters);
@@ -50,9 +63,10 @@ function updateCounts() {
   englishWordCount.textContent = formatNumber(countEnglishWords(text));
   lineCount.textContent = formatNumber(countLines(text));
   paragraphCount.textContent = formatNumber(countParagraphs(text));
+  goalProgressLabel.textContent = `${formatNumber(characters)} / ${formatNumber(characterGoal)}文字`;
   shortPostStatus.textContent = `${formatNumber(shortPostPercent)}%`;
   shortPostMeter.style.width = `${meterWidth}%`;
-  shortPostMeter.classList.toggle("is-over", characters > SHORT_POST_LIMIT);
+  shortPostMeter.classList.toggle("is-over", characters > characterGoal);
 }
 
 async function copyText() {
@@ -76,6 +90,8 @@ function clearText() {
 }
 
 textInput.addEventListener("input", updateCounts);
+goalInput.addEventListener("input", updateCounts);
+goalInput.addEventListener("blur", normalizeGoalInput);
 copyButton.addEventListener("click", () => {
   copyText().catch(() => {
     textInput.select();

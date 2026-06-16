@@ -60,9 +60,24 @@
             </article>
           </div>
 
-          <div class="meter" aria-label="文字数の目安">
+          <div class="meter" aria-label="目標文字数の達成率">
+            <label class="goal-control" for="goalInput">
+              <span>目標文字数</span>
+              <span class="goal-input-wrap">
+                <input
+                  id="goalInput"
+                  class="goal-input"
+                  type="number"
+                  inputmode="numeric"
+                  min="1"
+                  step="1"
+                  value="280"
+                >
+                <span>文字</span>
+              </span>
+            </label>
             <div class="meter-top">
-              <span>280文字</span>
+              <span id="goalProgressLabel">0 / 280文字</span>
               <span id="shortPostStatus">0%</span>
             </div>
             <div class="meter-track">
