@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>文字数カウンター</title>
+    <meta
+      name="description"
+      content="文字数、空白を除いた文字数、英語の単語数をリアルタイムに数える静的Webアプリです。"
+    >
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace" aria-labelledby="app-title">
+        <div class="editor-panel">
+          <header class="topbar">
+            <div>
+              <p class="eyebrow">Realtime Counter</p>
+              <h1 id="app-title">文字数カウンター</h1>
+            </div>
+            <div class="actions" aria-label="テキスト操作">
+              <button class="button" id="copyButton" type="button">コピー</button>
+              <button class="button button-secondary" id="clearButton" type="button">消去</button>
+            </div>
+          </header>
+
+          <label class="sr-only" for="textInput">カウントするテキスト</label>
+          <textarea
+            id="textInput"
+            class="text-input"
+            spellcheck="true"
+            placeholder="ここに文章を入力または貼り付け"
+            autofocus
+          ></textarea>
+        </div>
+
+        <aside class="stats-panel" aria-label="カウント結果">
+          <div class="primary-stat">
+            <span class="stat-label">文字数</span>
+            <strong id="charCount">0</strong>
+          </div>
+
+          <div class="stats-grid">
+            <article class="stat-card">
+              <span class="stat-label">空白なし</span>
+              <strong id="charNoSpaceCount">0</strong>
+            </article>
+            <article class="stat-card">
+              <span class="stat-label">英単語</span>
+              <strong id="englishWordCount">0</strong>
+            </article>
+            <article class="stat-card">
+              <span class="stat-label">行数</span>
+              <strong id="lineCount">0</strong>
+            </article>
+            <article class="stat-card">
+              <span class="stat-label">段落</span>
+              <strong id="paragraphCount">0</strong>
+            </article>
+          </div>
+
+          <div class="meter" aria-label="文字数の目安">
+            <div class="meter-top">
+              <span>280文字</span>
+              <span id="shortPostStatus">0%</span>
+            </div>
+            <div class="meter-track">
+              <div class="meter-fill" id="shortPostMeter"></div>
+            </div>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
